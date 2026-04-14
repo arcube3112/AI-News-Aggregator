@@ -13,27 +13,25 @@ from difflib import SequenceMatcher
 from typing import Optional
 
 import requests
-
-import streamlit as st  # Add this import at the top
-import hashlib
-# ... other imports ...
+import streamlit as st  # Only need this once
 
 from config import (
     CATEGORIES,
     MAX_ARTICLES_PER_CATEGORY,
     SIMILARITY_THRESHOLD,
 )
-
-# FIX: Try to get the key from Streamlit Secrets first
-# If it's not there, try to get it from config.py
-try:
-    NEWSAPI_KEY = st.secrets["NEWSAPI_KEY"]
-except:
-    from config import NEWSAPI_KEY
 from database import cache_articles, get_cached_articles
 
-logger = logging.getLogger(__name__)
+# FIX: Check Streamlit Secrets first, then fallback to config.py
+NEWSAPI_KEY = st.secrets.get("NEWSAPI_KEY")
 
+if not NEWSAPI_KEY:
+    try:
+        from config import NEWSAPI_KEY
+    except ImportError:
+        NEWSAPI_KEY = None
+
+logger = logging.getLogger(__name__)
 NEWSAPI_BASE = "https://newsapi.org/v2/everything"
 
 
