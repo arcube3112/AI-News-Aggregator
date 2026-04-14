@@ -41,18 +41,26 @@ st.markdown("""
     .block-container { padding: 2rem 2.5rem 4rem !important; }
 
     /* ── Sidebar ── */
-    [data-testid="stSidebar"] {
-        background: #FFFFFF !important;
-        border-right: 1px solid #E5E7EB;
-        padding-top: 1.5rem;
-    }
-    [data-testid="stSidebar"] .stRadio label {
-        font-size: 0.88rem;
-        font-weight: 500;
-        color: #374151;
-        padding: 6px 0;
-        cursor: pointer;
-    }
+[data-testid="stSidebar"] {
+    background: #FFFFFF !important;
+    border-right: 1px solid #E5E7EB;
+    padding-top: 1.5rem;
+}
+
+/* FIX: This targets the text specifically for high visibility */
+[data-testid="stSidebar"] .stRadio label p {
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    color: #111827 !important; /* This is a very dark, visible grey/black */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* FIX: Makes the active selection even bolder */
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] > div[data-checked="true"] label p {
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
     [data-testid="stSidebar"] .stRadio [data-checked="true"] label {
         color: #1F2937;
         font-weight: 600;
