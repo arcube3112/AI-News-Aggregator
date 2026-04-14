@@ -84,12 +84,13 @@ def _fetch_from_api(keywords: list[str], days_back: int = 3) -> list[dict]:
             # UPDATED: Using GNews parameter names
             resp = requests.get(
                 NEWSAPI_BASE,
-                params={
-                    "q": keyword,
+                params = {
+                    "q": f'"{keyword}" AND (AI OR "Artificial Intelligence" OR "Machine Learning")', 
                     "lang": "en",
-                    "token": NEWSAPI_KEY, 
-                    "max": MAX_ARTICLES_PER_CATEGORY,
-                },
+                    "token": NEWSAPI_KEY,
+                    "max": 10,
+                    "sortby": "publishedAt" # This keeps the news fresh
+                    },
                 timeout=10,
             )
             resp.raise_for_status()
