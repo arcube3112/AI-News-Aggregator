@@ -32,7 +32,16 @@ if not NEWSAPI_KEY:
         NEWSAPI_KEY = None
 
 logger = logging.getLogger(__name__)
-NEWSAPI_BASE = "https://newsapi.org/v2/everything"
+# Change the base URL to GNews
+NEWSAPI_BASE = "https://gnews.io/api/v4/search"
+
+# Inside your _fetch_from_api function, change the param names:
+params = {
+    "q": keyword,
+    "lang": "en",           # GNews uses 'lang' instead of 'language'
+    "token": NEWSAPI_KEY,   # GNews uses 'token' instead of 'apiKey'
+    "max": 10               # GNews uses 'max' instead of 'pageSize'
+}
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
